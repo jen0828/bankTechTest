@@ -9,4 +9,8 @@ export class Account {
   deposit(amount: number) {
     return this.transactionHistory.push(amount);
   }
+
+  balance = () => {
+    return this.transactionHistory.reduce((a, b) => a + b);
+  };
 }
