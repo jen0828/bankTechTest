@@ -25,8 +25,9 @@ describe('class Account', () => {
   describe('#withdraw', () => {
     it('can withdraw money from the account', () => {
       let account = new Account();
+      account.deposit(1000)
       account.withdraw(500);
-      expect(account.balance()).toEqual(-500);
+      expect(account.balance()).toEqual(500);
     });
   });
 });
