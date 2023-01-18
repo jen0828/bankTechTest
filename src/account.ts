@@ -2,6 +2,7 @@ interface AccountInterface {
   openingBalance: number;
   transactionHistory: number[];
   deposit: (amount: number) => void;
+  withdraw: (amount: number) => void;
   balance: () => void;
 }
 
@@ -16,6 +17,10 @@ export class Account implements AccountInterface {
 
   deposit(amount: number) {
     return this.transactionHistory.push(amount);
+  }
+
+  withdraw(amount: number) {
+    return this.transactionHistory.push(-amount);
   }
 
   balance = () => {

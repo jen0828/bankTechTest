@@ -21,4 +21,12 @@ describe('class Account', () => {
       expect(account.balance()).toEqual(1000);
     });
   });
+
+  describe('#withdraw', () => {
+    it('can withdraw money from the account', () => {
+      let account = new Account();
+      account.withdraw(500);
+      expect(account.balance()).toEqual(-500);
+    });
+  });
 });
