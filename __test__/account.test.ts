@@ -41,7 +41,7 @@ describe('class Account', () => {
     let account = new Account();
     account.deposit(5000);
     expect(() => {
-      account.withdraw(5500);
+      account.withdraw(5200);
     }).toThrow('Insufficient funds');
   });
 });
