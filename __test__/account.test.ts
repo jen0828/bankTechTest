@@ -25,7 +25,7 @@ describe('class Account', () => {
   describe('#withdraw', () => {
     it('can withdraw money from the account', () => {
       let account = new Account();
-      account.deposit(1000)
+      account.deposit(1000);
       account.withdraw(500);
       expect(account.balance()).toEqual(500);
     });
@@ -33,9 +33,15 @@ describe('class Account', () => {
 
   it('cannot withdraw an amount less than 0', () => {
     expect(() => {
-      account.withdraw(-100)
-    }).toThrow('Invalid amount - Cannot withdraw amount less than £0')
-  })
+      account.withdraw(-100);
+    }).toThrow('Invalid amount - Cannot withdraw amount less than £0');
+  });
 
-
+  it('cannot withdraw if amount is greater than overdraft', () => {
+    let account = new Account();
+    account.deposit(5000);
+    expect(() => {
+      account.withdraw(5500);
+    }).toThrow('Insufficient funds');
+  });
 });
