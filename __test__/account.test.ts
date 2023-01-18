@@ -30,4 +30,12 @@ describe('class Account', () => {
       expect(account.balance()).toEqual(500);
     });
   });
+
+  it('cannot withdraw an amount less than 0', () => {
+    expect(() => {
+      account.withdraw(-100)
+    }).toThrow('Invalid amount - Cannot withdraw amount less than £0')
+  })
+
+
 });

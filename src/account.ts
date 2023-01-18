@@ -20,6 +20,9 @@ export class Account implements AccountInterface {
   }
 
   withdraw(amount: number) {
+    if (amount < 0) {
+      throw new Error('Invalid amount - Cannot withdraw amount less than £0');
+    }
     return this.transactionHistory.push(-amount);
   }
 
