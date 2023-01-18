@@ -7,8 +7,9 @@ describe('class Account', () => {
   });
 
   describe('#deposite', () => {
-    it('can deposite money into an account', () => {
-      expect(account.deposit(1000)).toEqual(1000);
+    it('can save a deposit into an array of transactions', () => {
+      account.deposit(1000);
+      expect(account.transactionHistory).toContain(1000);
     });
   });
 });
