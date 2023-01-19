@@ -1,13 +1,4 @@
-interface AccountInterface {
-  openingBalance: number;
-  transactionHistory: number[];
-  overdraftLimit: number;
-  deposit: (amount: number) => void;
-  withdraw: (amount: number) => void;
-  balance: () => void;
-}
-
-export class Account implements AccountInterface {
+export class Account {
   openingBalance: number;
   transactionHistory: number[];
   overdraftLimit: number;
