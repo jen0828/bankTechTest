@@ -40,7 +40,7 @@ export class Account {
     return printout;
   };
 
-  _withdrawChecks = (amount) => {
+  _withdrawChecks = (amount: number) => {
     if (amount < 0) {
       throw new Error('Invalid amount - Cannot withdraw amount less than £0');
     } else if (amount > this.balance() + this.overdraftLimit) {
