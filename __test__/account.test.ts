@@ -10,7 +10,7 @@ describe('class Account', () => {
   describe('#deposit', () => {
     it('can save a deposit into an array of transactions', () => {
       account.deposit(1000);
-      expect(account.transactionHistory).toContain(1000);
+      expect(account.transactionHistory[0].currentBalance).toEqual(1000);
     });
   });
 
