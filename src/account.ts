@@ -18,11 +18,8 @@ export class Account {
   }
 
   withdraw(amount: number) {
-    if (amount < 0) {
-      throw new Error('Invalid amount - Cannot withdraw amount less than £0');
-    } else if (amount > this.balance() + this.overdraftLimit) {
-      throw new Error('Insufficient funds');
-    }
+    this._withdrawChecks(amount);
+
     let withdrawal = -amount;
     return this.transactionHistory.push(
       new Transaction(withdrawal, this.balance() + withdrawal)
@@ -33,5 +30,13 @@ export class Account {
     return this.transactionHistory
       .map((transaction) => transaction.amount)
       .reduce((a, b) => a + b, 0);
+  };
+
+  _withdrawChecks = (amount) => {
+    if (amount < 0) {
+      throw new Error('Invalid amount - Cannot withdraw amount less than £0');
+    } else if (amount > this.balance() + this.overdraftLimit) {
+      throw new Error('Insufficient funds');
+    }
   };
 }
