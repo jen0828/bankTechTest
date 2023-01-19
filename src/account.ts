@@ -1,4 +1,5 @@
 import { Itransaction, Transaction } from './transaction';
+import Statement from './statement';
 
 export class Account {
   openingBalance: number;
@@ -30,6 +31,13 @@ export class Account {
     return this.transactionHistory
       .map((transaction) => transaction.amount)
       .reduce((a, b) => a + b, 0);
+  };
+
+  viewStatement = () => {
+    let statement = new Statement();
+    let printout = statement.printStatement(this.transactionHistory);
+
+    return printout;
   };
 
   _withdrawChecks = (amount) => {
