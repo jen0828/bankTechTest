@@ -16,20 +16,8 @@ export class Account {
     return this._openingBalance;
   }
 
-  set openingBalance(balance: number) {
-    this._openingBalance = balance;
-  }
-
   get transactionHistory(): Itransaction[] {
     return this._transactionHistory;
-  }
-
-  get overdraftLimit(): number {
-    return this._overdraftLimit;
-  }
-
-  set overdraftLimit(limit: number) {
-    this._overdraftLimit = limit;
   }
 
   deposit(amount: number): number {
