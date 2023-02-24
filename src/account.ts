@@ -2,48 +2,70 @@ import { Itransaction, Transaction } from './transaction';
 import Statement from './statement';
 
 export class Account {
-  openingBalance: number;
-  transactionHistory: Itransaction[];
-  overdraftLimit: number;
+  private _openingBalance: number;
+  private _transactionHistory: Itransaction[];
+  private _overdraftLimit: number;
 
   constructor(openingBalance = 0, overdraftLimit = 100) {
-    this.openingBalance = openingBalance;
-    this.transactionHistory = [];
-    this.overdraftLimit = overdraftLimit;
+    this._openingBalance = openingBalance;
+    this._transactionHistory = [];
+    this._overdraftLimit = overdraftLimit;
+  }
+
+  get openingBalance(): number {
+    return this._openingBalance;
+  }
+
+  set openingBalance(balance: number) {
+    this._openingBalance = balance;
+  }
+
+  get transactionHistory(): Itransaction[] {
+    return this._transactionHistory;
+  }
+
+  get overdraftLimit(): number {
+    return this._overdraftLimit;
+  }
+
+  set overdraftLimit(limit: number) {
+    this._overdraftLimit = limit;
   }
 
   deposit(amount: number): number {
-    return this.transactionHistory.push(
-      new Transaction(amount, amount + this.balance())
-    );
+    const newTransaction = new Transaction(amount, amount + this.balance());
+    this._transactionHistory.push(newTransaction);
+    return this._transactionHistory.length;
   }
 
   withdraw(amount: number) {
     this._withdrawChecks(amount);
 
-    let withdrawal = -amount;
-    return this.transactionHistory.push(
-      new Transaction(withdrawal, this.balance() + withdrawal)
+    const withdrawal = -amount;
+    const newTransaction = new Transaction(
+      withdrawal,
+      this.balance() + withdrawal
     );
+    this._transactionHistory.push(newTransaction);
+    return this._transactionHistory.length;
   }
 
-  balance = () => {
-    return this.transactionHistory
-      .map((transaction) => transaction.amount)
-      .reduce((a, b) => a + b, 0);
-  };
+  get balance(): () => number {
+    return () =>
+      this._transactionHistory
+        .map((transaction) => transaction.amount)
+        .reduce((a, b) => a + b, 0);
+  }
 
   viewStatement = () => {
-    let statement = new Statement();
-    let printout = statement.printStatement(this.transactionHistory);
-
-    return printout;
+    const statement = new Statement();
+    return statement.printStatement(this._transactionHistory);
   };
 
-  _withdrawChecks = (amount: number) => {
+  private _withdrawChecks = (amount: number) => {
     if (amount < 0) {
       throw new Error('Invalid amount - Cannot withdraw amount less than £0');
-    } else if (amount > this.balance() + this.overdraftLimit) {
+    } else if (amount > this.balance() + this._overdraftLimit) {
       throw new Error('Insufficient funds');
     }
   };
