@@ -5,11 +5,13 @@ export class Account {
   private _openingBalance: number;
   private _transactionHistory: Itransaction[];
   private _overdraftLimit: number;
+  private _statement: Statement;
 
   constructor(openingBalance = 0, overdraftLimit = 100) {
     this._openingBalance = openingBalance;
     this._transactionHistory = [];
     this._overdraftLimit = overdraftLimit;
+    this._statement = new Statement();
   }
 
   get openingBalance(): number {
@@ -46,8 +48,7 @@ export class Account {
   }
 
   viewStatement = () => {
-    const statement = new Statement();
-    return statement.printStatement(this._transactionHistory);
+    return this._statement.printStatement(this._transactionHistory);
   };
 
   private _withdrawChecks = (amount: number) => {
